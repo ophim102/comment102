@@ -248,97 +248,98 @@ const AdminPage: React.FC = () => {
               </p>
             </div>
 
-          {/* Tabs */}
-          <div className="border-b border-gray-200">
-            <nav className="flex space-x-8 px-6">
-              {tabs.map((tab) => {
-                const Icon = tab.icon
-                return (
-                  <button
-                    key={tab.id}
-                    onClick={() => setActiveTab(tab.id)}
-                    className={`py-4 px-1 border-b-2 font-medium text-sm flex items-center ${
-                      activeTab === tab.id
-                        ? 'border-blue-500 text-blue-600'
-                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                    }`}
-                  >
-                    <Icon className="w-4 h-4 mr-2" />
-                    {tab.label}
-                  </button>
-                )
-              })}
-            </nav>
-          </div>
-
-          {/* Content */}
-          <div className="p-6">
-            {/* Configuration Tab */}
-            {activeTab === 'config' && (
-              <ConfigForm
-                initialConfig={config}
-                onSave={saveConfig}
-                onTest={testConnection}
-              />
-            )}
-
-            {/* Embed Code Generator Tab */}
-            {activeTab === 'embed' && (
-              <EmbedCodeGenerator />
-            )}
-
-            {/* Statistics Tab */}
-            {activeTab === 'stats' && (
-              <DatabaseManager />
-            )}
-
-            {/* Health Tab */}
-            {activeTab === 'health' && (
-              <HealthMonitor />
-            )}
-
-            {/* Tools Tab */}
-            {activeTab === 'tools' && (
-              <div className="space-y-6">
-                <h3 className="text-lg font-medium text-gray-900">
-                  Công cụ quản lý
-                </h3>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="bg-white border border-gray-200 rounded-lg p-6">
-                    <h4 className="text-md font-medium text-gray-900 mb-4">
-                      Sao lưu dữ liệu
-                    </h4>
-                    <p className="text-sm text-gray-600 mb-4">
-                      Export toàn bộ dữ liệu ra file JSON
-                    </p>
+            {/* Tabs */}
+            <div className="border-b border-gray-200">
+              <nav className="flex space-x-8 px-6">
+                {tabs.map((tab) => {
+                  const Icon = tab.icon
+                  return (
                     <button
-                      onClick={exportData}
-                      className="w-full flex items-center justify-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                      key={tab.id}
+                      onClick={() => setActiveTab(tab.id)}
+                      className={`py-4 px-1 border-b-2 font-medium text-sm flex items-center ${
+                        activeTab === tab.id
+                          ? 'border-blue-500 text-blue-600'
+                          : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                      }`}
                     >
-                      <Database className="w-4 h-4 mr-2" />
-                      Export dữ liệu
+                      <Icon className="w-4 h-4 mr-2" />
+                      {tab.label}
                     </button>
-                  </div>
+                  )
+                })}
+              </nav>
+            </div>
 
-                  <div className="bg-white border border-gray-200 rounded-lg p-6">
-                    <h4 className="text-md font-medium text-gray-900 mb-4">
-                      Reset Database
-                    </h4>
-                    <p className="text-sm text-gray-600 mb-4">
-                      Xóa toàn bộ dữ liệu và tạo lại schema
-                    </p>
-                    <button
-                      onClick={resetDatabase}
-                      className="w-full flex items-center justify-center px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
-                    >
-                      <AlertCircle className="w-4 h-4 mr-2" />
-                      Reset Database
-                    </button>
+            {/* Content */}
+            <div className="p-6">
+              {/* Configuration Tab */}
+              {activeTab === 'config' && (
+                <ConfigForm
+                  initialConfig={config}
+                  onSave={saveConfig}
+                  onTest={testConnection}
+                />
+              )}
+
+              {/* Embed Code Generator Tab */}
+              {activeTab === 'embed' && (
+                <EmbedCodeGenerator />
+              )}
+
+              {/* Statistics Tab */}
+              {activeTab === 'stats' && (
+                <DatabaseManager />
+              )}
+
+              {/* Health Tab */}
+              {activeTab === 'health' && (
+                <HealthMonitor />
+              )}
+
+              {/* Tools Tab */}
+              {activeTab === 'tools' && (
+                <div className="space-y-6">
+                  <h3 className="text-lg font-medium text-gray-900">
+                    Công cụ quản lý
+                  </h3>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="bg-white border border-gray-200 rounded-lg p-6">
+                      <h4 className="text-md font-medium text-gray-900 mb-4">
+                        Sao lưu dữ liệu
+                      </h4>
+                      <p className="text-sm text-gray-600 mb-4">
+                        Export toàn bộ dữ liệu ra file JSON
+                      </p>
+                      <button
+                        onClick={exportData}
+                        className="w-full flex items-center justify-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                      >
+                        <Database className="w-4 h-4 mr-2" />
+                        Export dữ liệu
+                      </button>
+                    </div>
+
+                    <div className="bg-white border border-gray-200 rounded-lg p-6">
+                      <h4 className="text-md font-medium text-gray-900 mb-4">
+                        Reset Database
+                      </h4>
+                      <p className="text-sm text-gray-600 mb-4">
+                        Xóa toàn bộ dữ liệu và tạo lại schema
+                      </p>
+                      <button
+                        onClick={resetDatabase}
+                        className="w-full flex items-center justify-center px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+                      >
+                        <AlertCircle className="w-4 h-4 mr-2" />
+                        Reset Database
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
       </div>
