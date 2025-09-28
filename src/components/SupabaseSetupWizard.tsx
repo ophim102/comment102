@@ -140,16 +140,8 @@ const SupabaseSetupWizard: React.FC = () => {
       // Simulate CLI installation
       await new Promise(resolve => setTimeout(resolve, 2000))
       
-      // Check if CLI is available
-      const isInstalled = await checkCLIInstallation()
-      
-      if (isInstalled) {
-        updateStepStatus('install-cli', 'completed')
-        toast.success('Supabase CLI đã được cài đặt thành công!')
-      } else {
-        updateStepStatus('install-cli', 'error')
-        toast.error('Không thể cài đặt Supabase CLI. Vui lòng cài đặt thủ công.')
-      }
+      updateStepStatus('install-cli', 'completed')
+      toast.success('Supabase CLI đã được cài đặt thành công!')
     } catch (error) {
       updateStepStatus('install-cli', 'error')
       toast.error('Lỗi khi cài đặt Supabase CLI')
@@ -172,11 +164,6 @@ const SupabaseSetupWizard: React.FC = () => {
   }
 
   const linkSupabaseProject = async () => {
-    if (!projectRef) {
-      toast.error('Vui lòng nhập Project Reference ID')
-      return
-    }
-
     updateStepStatus('link-project', 'in_progress')
     
     try {
@@ -249,11 +236,6 @@ const SupabaseSetupWizard: React.FC = () => {
       updateStepStatus('test-connection', 'error')
       toast.error('Lỗi khi test kết nối')
     }
-  }
-
-  const checkCLIInstallation = async (): Promise<boolean> => {
-    // Mock check - in real implementation, this would check if CLI is installed
-    return Math.random() > 0.3 // 70% success rate
   }
 
   const copyToClipboard = (text: string) => {
