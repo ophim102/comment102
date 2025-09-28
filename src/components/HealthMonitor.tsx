@@ -141,7 +141,7 @@ const HealthMonitor: React.FC = () => {
       // Real-time Health Check
       const realtimeStart = Date.now()
       try {
-        const channel = supabase
+        supabase
           .channel('health-check')
           .subscribe()
         const realtimeResponseTime = Date.now() - realtimeStart
