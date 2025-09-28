@@ -5,8 +5,6 @@ import {
   AlertCircle, 
   Copy, 
   ExternalLink, 
-  Database, 
-  Key, 
   Play,
   RefreshCw,
   Download,

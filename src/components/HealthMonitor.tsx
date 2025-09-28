@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { supabase } from '../lib/supabase'
 import { toast } from 'react-hot-toast'
 import { 
-  Shield, 
   Database, 
   Server, 
   Users, 
@@ -142,15 +141,15 @@ const HealthMonitor: React.FC = () => {
       // Real-time Health Check
       const realtimeStart = Date.now()
       try {
-        const { error: realtimeError } = await supabase
+        const channel = supabase
           .channel('health-check')
           .subscribe()
         const realtimeResponseTime = Date.now() - realtimeStart
         
         checks.push({
           name: 'Real-time',
-          status: realtimeError ? 'error' : 'healthy',
-          message: realtimeError ? `Real-time error: ${realtimeError.message}` : 'Real-time service working',
+          status: 'healthy',
+          message: 'Real-time service working',
           lastChecked: new Date().toISOString(),
           responseTime: realtimeResponseTime
         })

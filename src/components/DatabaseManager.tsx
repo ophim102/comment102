@@ -36,7 +36,6 @@ const DatabaseManager: React.FC = () => {
   
   const [tables, setTables] = useState<TableInfo[]>([])
   const [loading, setLoading] = useState(false)
-  const [selectedTable, setSelectedTable] = useState<string>('')
 
   useEffect(() => {
     loadStats()

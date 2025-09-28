@@ -7,9 +7,6 @@ import {
   Download, 
   Settings,
   User,
-  Image,
-  Hash,
-  Globe,
   FileText,
   CheckCircle
 } from 'lucide-react'

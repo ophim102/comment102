@@ -88,14 +88,24 @@ class Analytics {
 
   // Performance tracking
   trackPerformance(label: string, fn: () => Promise<any> | any) {
-    const endTiming = this.performanceMonitor.startTiming(label)
+    const startTime = performance.now()
     
     const result = fn()
     
     if (result instanceof Promise) {
-      return result.finally(endTiming)
+      return result.finally(() => {
+        const endTime = performance.now()
+        this.track('performance', {
+          label,
+          duration: endTime - startTime
+        })
+      })
     } else {
-      endTiming()
+      const endTime = performance.now()
+      this.track('performance', {
+        label,
+        duration: endTime - startTime
+      })
       return result
     }
   }
@@ -126,13 +136,15 @@ class Analytics {
   }
 
   getPerformanceMetrics() {
-    return this.performanceMonitor.getMetrics()
+    return {
+      pageLoadTime: performance.timing?.loadEventEnd - performance.timing?.navigationStart || 0,
+      domContentLoaded: performance.timing?.domContentLoadedEventEnd - performance.timing?.navigationStart || 0
+    }
   }
 
   // Clear analytics data
   clear() {
     this.events = []
-    this.performanceMonitor.clear()
   }
 }
 
