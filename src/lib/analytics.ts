@@ -1,5 +1,4 @@
 // Analytics and monitoring utilities
-import { PerformanceMonitor } from './performance'
 
 interface AnalyticsEvent {
   event: string
@@ -21,13 +20,11 @@ class Analytics {
   private events: AnalyticsEvent[] = []
   private sessionId: string
   private userId?: string
-  private performanceMonitor: PerformanceMonitor
   private isEnabled: boolean
 
   constructor() {
     this.sessionId = this.generateSessionId()
-    this.performanceMonitor = new PerformanceMonitor()
-    this.isEnabled = import.meta.env.VITE_ENABLE_ANALYTICS === 'true'
+    this.isEnabled = (import.meta as any).env?.VITE_ENABLE_ANALYTICS === 'true'
     
     // Track page load
     this.track('page_load', {
@@ -204,7 +201,7 @@ class HealthMonitor {
   async runAllChecks(): Promise<Record<string, boolean>> {
     const results: Record<string, boolean> = {}
     
-    for (const [name, checkFn] of this.checks) {
+    for (const [name] of this.checks) {
       results[name] = await this.runCheck(name)
     }
     

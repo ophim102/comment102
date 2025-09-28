@@ -4,11 +4,8 @@ import { toast } from 'react-hot-toast'
 import { 
   Settings, 
   Database, 
-  Users, 
-  MessageSquare, 
   BarChart3, 
   Shield, 
-  RefreshCw,
   AlertCircle,
   Code
 } from 'lucide-react'
@@ -31,7 +28,6 @@ const AdminPage: React.FC = () => {
     serviceRoleKey: ''
   })
   
-  const [loading, setLoading] = useState(false)
   const [activeTab, setActiveTab] = useState('config')
 
   useEffect(() => {
@@ -54,20 +50,16 @@ const AdminPage: React.FC = () => {
   }
 
   const saveConfig = async () => {
-    setLoading(true)
     try {
       // In a real app, you'd save this to a config file or database
       // For now, we'll just show a success message
       toast.success('Cấu hình đã được lưu!')
     } catch (error) {
       toast.error('Lỗi khi lưu cấu hình')
-    } finally {
-      setLoading(false)
     }
   }
 
   const testConnection = async () => {
-    setLoading(true)
     try {
       const { error } = await supabase.from('users').select('count').limit(1)
       if (error) {
@@ -77,8 +69,6 @@ const AdminPage: React.FC = () => {
       }
     } catch (error) {
       toast.error('Lỗi kết nối')
-    } finally {
-      setLoading(false)
     }
   }
 
@@ -87,14 +77,11 @@ const AdminPage: React.FC = () => {
       return
     }
 
-    setLoading(true)
     try {
       // This would run the schema.sql file
       toast.success('Database đã được reset!')
     } catch (error) {
       toast.error('Lỗi khi reset database')
-    } finally {
-      setLoading(false)
     }
   }
 

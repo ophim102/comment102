@@ -7,11 +7,9 @@ import {
   ExternalLink, 
   Database, 
   Key, 
-  Settings, 
   Play,
   RefreshCw,
   Download,
-  Upload,
   ChevronRight,
   ChevronDown
 } from 'lucide-react'
