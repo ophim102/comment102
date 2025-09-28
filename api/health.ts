@@ -25,7 +25,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const startTime = Date.now()
     
     // Test Supabase connection
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from('comments')
       .select('count')
       .limit(1)

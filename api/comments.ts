@@ -17,7 +17,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return
   }
 
-  const { action, topicId, commentId, userId } = req.query
+  const { action } = req.query
 
   try {
     switch (action) {
