@@ -9,14 +9,8 @@ import {
   BarChart3, 
   Shield, 
   RefreshCw,
-  Save,
-  Eye,
-  EyeOff,
-  CheckCircle,
-  XCircle,
   AlertCircle,
-  Code,
-  Zap
+  Code
 } from 'lucide-react'
 import ConfigForm from '../components/ConfigForm'
 import DatabaseManager from '../components/DatabaseManager'
@@ -30,20 +24,6 @@ interface SupabaseConfig {
   serviceRoleKey: string
 }
 
-interface DatabaseStats {
-  users: number
-  topics: number
-  comments: number
-  reactions: number
-}
-
-interface HealthStatus {
-  database: boolean
-  api: boolean
-  auth: boolean
-  storage: boolean
-}
-
 const AdminPage: React.FC = () => {
   const [config, setConfig] = useState<SupabaseConfig>({
     url: '',
@@ -51,28 +31,11 @@ const AdminPage: React.FC = () => {
     serviceRoleKey: ''
   })
   
-  const [stats, setStats] = useState<DatabaseStats>({
-    users: 0,
-    topics: 0,
-    comments: 0,
-    reactions: 0
-  })
-  
-  const [health, setHealth] = useState<HealthStatus>({
-    database: false,
-    api: false,
-    auth: false,
-    storage: false
-  })
-  
   const [loading, setLoading] = useState(false)
-  const [showKeys, setShowKeys] = useState(false)
   const [activeTab, setActiveTab] = useState('config')
 
   useEffect(() => {
     loadConfig()
-    loadStats()
-    checkHealth()
     
     // Get active tab from URL
     const urlParams = new URLSearchParams(window.location.search)
@@ -83,65 +46,11 @@ const AdminPage: React.FC = () => {
   }, [])
 
   const loadConfig = () => {
-    const url = import.meta.env.VITE_SUPABASE_URL || ''
-    const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || ''
-    const serviceRoleKey = import.meta.env.SUPABASE_SERVICE_ROLE_KEY || ''
+    const url = (import.meta as any).env?.VITE_SUPABASE_URL || ''
+    const anonKey = (import.meta as any).env?.VITE_SUPABASE_ANON_KEY || ''
+    const serviceRoleKey = (import.meta as any).env?.SUPABASE_SERVICE_ROLE_KEY || ''
     
     setConfig({ url, anonKey, serviceRoleKey })
-  }
-
-  const loadStats = async () => {
-    try {
-      const [usersResult, topicsResult, commentsResult, reactionsResult] = await Promise.all([
-        supabase.from('users').select('*', { count: 'exact', head: true }),
-        supabase.from('topics').select('*', { count: 'exact', head: true }),
-        supabase.from('comments').select('*', { count: 'exact', head: true }),
-        supabase.from('comment_reactions').select('*', { count: 'exact', head: true })
-      ])
-
-      setStats({
-        users: usersResult.count || 0,
-        topics: topicsResult.count || 0,
-        comments: commentsResult.count || 0,
-        reactions: reactionsResult.count || 0
-      })
-    } catch (error) {
-      console.error('Error loading stats:', error)
-    }
-  }
-
-  const checkHealth = async () => {
-    try {
-      // Test database connection
-      const { error: dbError } = await supabase.from('users').select('count').limit(1)
-      setHealth(prev => ({ ...prev, database: !dbError }))
-
-      // Test API
-      try {
-        const response = await fetch('/api/health')
-        setHealth(prev => ({ ...prev, api: response.ok }))
-      } catch {
-        setHealth(prev => ({ ...prev, api: false }))
-      }
-
-      // Test auth
-      try {
-        const { error: authError } = await supabase.auth.getSession()
-        setHealth(prev => ({ ...prev, auth: !authError }))
-      } catch {
-        setHealth(prev => ({ ...prev, auth: false }))
-      }
-
-      // Test storage
-      try {
-        const { error: storageError } = await supabase.storage.listBuckets()
-        setHealth(prev => ({ ...prev, storage: !storageError }))
-      } catch {
-        setHealth(prev => ({ ...prev, storage: false }))
-      }
-    } catch (error) {
-      console.error('Health check failed:', error)
-    }
   }
 
   const saveConfig = async () => {
@@ -165,7 +74,6 @@ const AdminPage: React.FC = () => {
         toast.error('Kết nối thất bại: ' + error.message)
       } else {
         toast.success('Kết nối thành công!')
-        checkHealth()
       }
     } catch (error) {
       toast.error('Lỗi kết nối')
@@ -183,7 +91,6 @@ const AdminPage: React.FC = () => {
     try {
       // This would run the schema.sql file
       toast.success('Database đã được reset!')
-      loadStats()
     } catch (error) {
       toast.error('Lỗi khi reset database')
     } finally {
