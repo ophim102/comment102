@@ -1,0 +1,37 @@
+{
+  "name": "youtube-comment-system",
+  "version": "1.0.0",
+  "description": "Hệ thống comment giống YouTube cho Vercel + Supabase",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "vercel-build": "npm run build",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.38.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.8.0",
+    "axios": "^1.6.0",
+    "date-fns": "^2.30.0",
+    "react-hot-toast": "^2.4.1",
+    "lucide-react": "^0.294.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@vitejs/plugin-react": "^4.1.0",
+    "vite": "^5.0.0",
+    "typescript": "^5.0.0",
+    "@vercel/node": "^3.0.0",
+    "tailwindcss": "^3.3.0",
+    "autoprefixer": "^10.4.0",
+    "postcss": "^8.4.0"
+  },
+  "keywords": ["comment", "youtube", "vercel", "supabase", "embed"],
+  "author": "Your Name",
+  "license": "MIT"
+}
