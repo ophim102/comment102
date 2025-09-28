@@ -30,7 +30,14 @@ VITE_SUPABASE_ANON_KEY=your-anon-key
 SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
 ```
 
-### **Bước 4: Truy cập Setup Wizard**
+**Lưu ý:** Sau khi thêm environment variables, cần **redeploy** project để áp dụng thay đổi.
+
+### **Bước 4: Redeploy Project**
+1. Vào **Deployments** tab
+2. Click **"Redeploy"** trên deployment mới nhất
+3. Chờ deploy hoàn thành
+
+### **Bước 5: Truy cập Setup Wizard**
 ```
 https://your-project.vercel.app/setup
 ```
