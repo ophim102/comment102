@@ -4,13 +4,9 @@ import {
   Home, 
   Settings, 
   Database, 
-  BarChart3, 
   Shield, 
   MessageSquare,
-  Users,
-  Activity,
-  Code,
-  Zap
+  Code
 } from 'lucide-react'
 
 const AdminNavigation: React.FC = () => {

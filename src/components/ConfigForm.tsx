@@ -46,8 +46,8 @@ const ConfigForm: React.FC<ConfigFormProps> = ({
     
     try {
       if (onTest) {
-        const result = await onTest(config)
-        setTestResult(result)
+        await onTest(config)
+        setTestResult({ success: true, message: 'Kết nối thành công!' })
       }
     } catch (error) {
       setTestResult({

@@ -21,7 +21,6 @@ const CommentItem: React.FC<CommentItemProps> = ({
   comment,
   currentUser,
   isReply = false,
-  isEditing = false,
   showReplies = false,
   onReply,
   onEdit,

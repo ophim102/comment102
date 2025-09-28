@@ -2,17 +2,14 @@ import React, { useState, useEffect } from 'react'
 import { supabase } from '../lib/supabase'
 import { toast } from 'react-hot-toast'
 import { 
-  Database, 
   Users, 
   MessageSquare, 
   BarChart3, 
   RefreshCw,
   Download,
-  Upload,
   Trash2,
   AlertTriangle,
-  CheckCircle,
-  XCircle
+  CheckCircle
 } from 'lucide-react'
 
 interface DatabaseStats {
